@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "esphome-doorbell"
+version = "0.1.0"
+description = ""
+authors = ["Anaïs Betts <anais@anaisbetts.org>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+esphome = "^2021.11.1"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
