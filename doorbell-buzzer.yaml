@@ -1,0 +1,63 @@
+esphome:
+  name: buzzer
+  platform: ESP8266
+  board: d1_mini
+  project:
+    name: zuidwijk.doorbell
+    version: "2.0"
+
+wifi:
+  ap:
+    ssid: "ESPHome DingDong Buzzer Setup"
+
+# Enable the captive portal for inital WiFi setup
+captive_portal:
+
+# Enable logging
+logger:
+
+ota:
+
+text_sensor:
+  - platform: version
+    name: dingdong ESPHome Version
+  - platform: wifi_info
+    ip_address:
+      name: DingDong IP
+    ssid:
+      name: DingDong SSID
+    bssid:
+      name: DingDong BSSID
+
+sensor:
+  - platform: uptime
+    name: DingDong Uptime
+  - platform: wifi_signal
+    name: DingDong WiFi Signal
+    update_interval: 60s
+
+switch:
+  - platform: gpio
+    pin:
+      number: D1
+      inverted: false
+    name: "DingDong Relay"
+    id: relay
+    icon: mdi:alarm-bell
+  - platform: restart
+    name: "DingDong Restart"
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: D5
+      mode: INPUT_PULLUP
+      inverted: true
+    name: "DingDong"
+    filters:
+      # Small filter, to debounce the button press.
+      - delayed_on: 25ms
+      - delayed_off: 1000ms # prevents from re-ringing within 1 second
+
+  - platform: status
+    name: "Status DingDong"
